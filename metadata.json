@@ -1,0 +1,6 @@
+{
+  "name": "SignBridge",
+  "description": "An AI-powered sign language and speech communication platform bridging barriers between deaf, hard-of-hearing, and hearing individuals.",
+  "requestFramePermissions": ["camera", "microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

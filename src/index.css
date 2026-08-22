@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-display: 'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  /* Accessibility Mode Classes */
+  body.accessibility-large-text {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+
+  body.accessibility-large-text button,
+  body.accessibility-large-text a,
+  body.accessibility-large-text input,
+  body.accessibility-large-text select,
+  body.accessibility-large-text textarea {
+    font-size: 1.125rem;
+  }
+
+  body.accessibility-high-contrast {
+    --tw-bg-opacity: 1;
+    background-color: #050811 !important;
+    color: #ffffff !important;
+  }
+
+  body.accessibility-high-contrast .bg-white {
+    background-color: #0f172a !important;
+    border-color: #475569 !important;
+    color: #f8fafc !important;
+  }
+
+  body.accessibility-high-contrast .bg-slate-50,
+  body.accessibility-high-contrast .bg-slate-100 {
+    background-color: #1e293b !important;
+    color: #ffffff !important;
+  }
+
+  body.accessibility-high-contrast .text-slate-500,
+  body.accessibility-high-contrast .text-slate-600,
+  body.accessibility-high-contrast .text-slate-700 {
+    color: #e2e8f0 !important;
+  }
+
+  body.accessibility-high-contrast .border-slate-200,
+  body.accessibility-high-contrast .border-slate-100 {
+    border-color: #64748b !important;
+  }
+
+  body.accessibility-high-contrast button {
+    border-width: 2px !important;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  body.accessibility-reduced-motion *,
+  body.accessibility-reduced-motion *::before,
+  body.accessibility-reduced-motion *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  /* Focus ring for keyboard navigation */
+  :focus-visible {
+    outline: 3px solid #0d9488 !important;
+    outline-offset: 2px !important;
+  }
+}
+
+/* Custom smooth pulse & landmark skeleton effects */
+@keyframes landmark-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.15); }
+}
+
+.animate-landmark {
+  animation: landmark-pulse 2s infinite ease-in-out;
+}
