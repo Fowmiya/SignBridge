@@ -1,20 +1,33 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# SignBridge
 
-# Run and deploy your AI Studio app
+SignBridge is an AI-powered sign language recognition and translation application designed to help bridge communication between sign language users and non-sign language users.
 
-This contains everything you need to run your app locally.
+## Features
 
-View your app in AI Studio: https://ai.studio/apps/4814c992-c417-40a6-b280-c456d179316c
+- Real-time sign language recognition
+- Camera-based sign detection
+- Video upload and processing
+- Sign language to text conversion
+- Simple and user-friendly interface
+- AI-powered recognition
 
-## Run Locally
+## Tech Stack
 
-**Prerequisites:**  Node.js
+- React
+- TypeScript
+- Vite
+- JavaScript
+- CSS
+- AI / Machine Learning
 
+## Project Structure
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+```text
+signbridge/
+├── assets/
+├── src/
+├── public/
+├── index.html
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
