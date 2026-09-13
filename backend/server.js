@@ -8,11 +8,9 @@ const authRoutes = require("./routes/authRoutes");
 const translationRoutes = require("./routes/translationRoutes");
 const conversationRoutes = require("./routes/conversationRoutes");
 
-const db = require("./database/db");
+require("./database/db");
 
 const app = express();
-
-const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(
@@ -37,9 +35,16 @@ app.get("/", (req, res) => {
   });
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(
-    `SignBridge Backend running on http://localhost:${PORT}`
-  );
-});
+// Export the Express app for Vercel
+module.exports = app;
+
+// Start the server only when running locally
+if (require.main === module) {
+  const PORT = process.env.PORT || 5000;
+
+  app.listen(PORT, () => {
+    console.log(
+      `SignBridge Backend running on http://localhost:${PORT}`
+    );
+  });
+}
