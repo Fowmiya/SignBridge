@@ -10,6 +10,8 @@ const conversationRoutesModule = require("./routes/conversationRoutes");
 
 require("./database/db");
 
+const app = express();
+
 console.log("Vercel route module types:", {
   sign: typeof signRoutesModule,
   auth: typeof authRoutesModule,
@@ -18,27 +20,61 @@ console.log("Vercel route module types:", {
 });
 
 console.log("Vercel route module keys:", {
-  sign: signRoutesModule && Object.keys(signRoutesModule),
-  auth: authRoutesModule && Object.keys(authRoutesModule),
-  translation: translationRoutesModule && Object.keys(translationRoutesModule),
-  conversation: conversationRoutesModule && Object.keys(conversationRoutesModule),
+  sign:
+    signRoutesModule && typeof signRoutesModule === "object"
+      ? Object.keys(signRoutesModule)
+      : [],
+  auth:
+    authRoutesModule && typeof authRoutesModule === "object"
+      ? Object.keys(authRoutesModule)
+      : [],
+  translation:
+    translationRoutesModule &&
+    typeof translationRoutesModule === "object"
+      ? Object.keys(translationRoutesModule)
+      : [],
+  conversation:
+    conversationRoutesModule &&
+    typeof conversationRoutesModule === "object"
+      ? Object.keys(conversationRoutesModule)
+      : [],
 });
 
-const getRouter = (moduleValue, name) => {
+const getRouter = (moduleValue, moduleName) => {
+  // Normal CommonJS export
   if (typeof moduleValue === "function") {
     return moduleValue;
   }
 
-  if (moduleValue && typeof moduleValue.default === "function") {
+  // ES module default export
+  if (
+    moduleValue &&
+    typeof moduleValue.default === "function"
+  ) {
     return moduleValue.default;
   }
 
-  if (moduleValue && typeof moduleValue.router === "function") {
+  // Vercel/bundler router export
+  if (
+    moduleValue &&
+    typeof moduleValue.router === "function"
+  ) {
     return moduleValue.router;
   }
 
+  // Vercel may wrap a CommonJS export under the filename/module name.
+  if (moduleValue && typeof moduleValue === "object") {
+    const functionExport = Object.values(moduleValue).find(
+      (value) => typeof value === "function"
+    );
+
+    if (functionExport) {
+      return functionExport;
+    }
+  }
+
   throw new TypeError(
-    `Route module "${name}" did not export an Express router. Type: ${typeof moduleValue}`
+    `Route module "${moduleName}" did not export an Express router. Type: ${typeof moduleValue}`
   );
 };
 
@@ -52,8 +88,6 @@ const conversationRoutes = getRouter(
   conversationRoutesModule,
   "conversationRoutes"
 );
-
-const app = express();
 
 app.use(
   cors({
