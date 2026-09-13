@@ -10,7 +10,21 @@ const conversationRoutesModule = require("./routes/conversationRoutes");
 
 require("./database/db");
 
-const getRouter = (moduleValue) => {
+console.log("Vercel route module types:", {
+  sign: typeof signRoutesModule,
+  auth: typeof authRoutesModule,
+  translation: typeof translationRoutesModule,
+  conversation: typeof conversationRoutesModule,
+});
+
+console.log("Vercel route module keys:", {
+  sign: signRoutesModule && Object.keys(signRoutesModule),
+  auth: authRoutesModule && Object.keys(authRoutesModule),
+  translation: translationRoutesModule && Object.keys(translationRoutesModule),
+  conversation: conversationRoutesModule && Object.keys(conversationRoutesModule),
+});
+
+const getRouter = (moduleValue, name) => {
   if (typeof moduleValue === "function") {
     return moduleValue;
   }
@@ -19,17 +33,28 @@ const getRouter = (moduleValue) => {
     return moduleValue.default;
   }
 
-  throw new TypeError("Route module did not export an Express router");
+  if (moduleValue && typeof moduleValue.router === "function") {
+    return moduleValue.router;
+  }
+
+  throw new TypeError(
+    `Route module "${name}" did not export an Express router. Type: ${typeof moduleValue}`
+  );
 };
 
-const signRoutes = getRouter(signRoutesModule);
-const authRoutes = getRouter(authRoutesModule);
-const translationRoutes = getRouter(translationRoutesModule);
-const conversationRoutes = getRouter(conversationRoutesModule);
+const signRoutes = getRouter(signRoutesModule, "signRoutes");
+const authRoutes = getRouter(authRoutesModule, "authRoutes");
+const translationRoutes = getRouter(
+  translationRoutesModule,
+  "translationRoutes"
+);
+const conversationRoutes = getRouter(
+  conversationRoutesModule,
+  "conversationRoutes"
+);
 
 const app = express();
 
-// Middleware
 app.use(
   cors({
     origin: process.env.FRONTEND_URL || "http://localhost:3000",
@@ -38,13 +63,11 @@ app.use(
 
 app.use(express.json());
 
-// API routes
 app.use("/api", signRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/translation", translationRoutes);
 app.use("/api/conversation", conversationRoutes);
 
-// Basic server check
 app.get("/", (req, res) => {
   res.json({
     success: true,
@@ -54,7 +77,6 @@ app.get("/", (req, res) => {
 
 module.exports = app;
 
-// Start the server only when running locally
 if (require.main === module) {
   const PORT = process.env.PORT || 5000;
 
