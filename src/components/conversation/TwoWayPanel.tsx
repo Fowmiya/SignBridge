@@ -58,7 +58,10 @@ export const TwoWayPanel: React.FC = () => {
       senderName: 'Sign Language User',
       inputType: signUserMode,
       text: signUserText.trim(),
-      translatedText: trans.translatedText !== signUserText ? trans.translatedText : undefined,
+      translatedText:
+        trans.translatedText !== signUserText
+          ? trans.translatedText
+          : undefined,
       signGloss: gloss,
       confidence: 0.96,
     });
@@ -72,13 +75,29 @@ export const TwoWayPanel: React.FC = () => {
     if (e) e.preventDefault();
     if (!hearingUserText.trim()) return;
 
-    const gloss = translationService.generateSignGloss(hearingUserText, signLang);
+    // Convert the hearing partner's English message
+    // into the selected spoken language.
+    const trans = translationService.translateText(
+      hearingUserText,
+      'en',
+      spokenLang
+    );
+
+    // Generate the sign-language gloss for the sign user.
+    const gloss = translationService.generateSignGloss(
+      hearingUserText,
+      signLang
+    );
 
     addMessage({
       sender: 'hearing_user',
       senderName: 'Hearing Partner',
       inputType: hearingUserMode === 'speech' ? 'speech' : 'text',
       text: hearingUserText.trim(),
+      translatedText:
+        trans.translatedText !== hearingUserText
+          ? trans.translatedText
+          : undefined,
       signGloss: gloss,
     });
 
@@ -99,9 +118,14 @@ export const TwoWayPanel: React.FC = () => {
           <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-700 flex items-center justify-center border border-teal-200">
             <Hand className="w-5 h-5" />
           </div>
+
           <div>
-            <h3 className="font-bold text-slate-900 text-sm sm:text-base">Two-Way Conversation Bridge</h3>
-            <p className="text-xs text-slate-500">Live dual-sided dialogue between Signer and Hearing speaker</p>
+            <h3 className="font-bold text-slate-900 text-sm sm:text-base">
+              Two-Way Conversation Bridge
+            </h3>
+            <p className="text-xs text-slate-500">
+              Live dual-sided dialogue between Signer and Hearing speaker
+            </p>
           </div>
         </div>
 
@@ -124,9 +148,12 @@ export const TwoWayPanel: React.FC = () => {
           {messages.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-center p-8 text-slate-400">
               <Sparkles className="w-10 h-10 text-teal-400 mb-2" />
-              <p className="text-sm font-semibold text-slate-200">Conversation is empty</p>
+              <p className="text-sm font-semibold text-slate-200">
+                Conversation is empty
+              </p>
               <p className="text-xs text-slate-500 max-w-xs mt-1">
-                Send a message from either the Sign Language User side (Left) or Hearing Partner side (Right) below.
+                Send a message from either the Sign Language User side (Left)
+                or Hearing Partner side (Right) below.
               </p>
             </div>
           ) : (
@@ -136,16 +163,35 @@ export const TwoWayPanel: React.FC = () => {
               return (
                 <div
                   key={msg.id}
-                  className={`flex flex-col ${isSignUser ? 'items-start' : 'items-end'}`}
+                  className={`flex flex-col ${
+                    isSignUser ? 'items-start' : 'items-end'
+                  }`}
                 >
                   <div className="flex items-center gap-2 mb-1 text-[11px] text-slate-400">
-                    <span className="font-bold text-slate-300">{msg.senderName}</span>
-                    <span>•</span>
-                    <span className="capitalize font-mono text-[10px] bg-slate-800 px-1.5 py-0.2 rounded text-teal-300">
-                      {msg.inputType === 'sign-camera' ? '📷 Camera Sign' : msg.inputType === 'sign-video' ? '🎥 Video Sign' : msg.inputType === 'speech' ? '🎤 Speech' : '⌨️ Text'}
+                    <span className="font-bold text-slate-300">
+                      {msg.senderName}
                     </span>
+
                     <span>•</span>
-                    <span>{new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+
+                    <span className="capitalize font-mono text-[10px] bg-slate-800 px-1.5 py-0.2 rounded text-teal-300">
+                      {msg.inputType === 'sign-camera'
+                        ? '📷 Camera Sign'
+                        : msg.inputType === 'sign-video'
+                        ? '🎥 Video Sign'
+                        : msg.inputType === 'speech'
+                        ? '🎤 Speech'
+                        : '⌨️ Text'}
+                    </span>
+
+                    <span>•</span>
+
+                    <span>
+                      {new Date(msg.timestamp).toLocaleTimeString([], {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
+                    </span>
                   </div>
 
                   <div
@@ -155,7 +201,9 @@ export const TwoWayPanel: React.FC = () => {
                         : 'bg-slate-800 text-white border border-slate-700 rounded-tr-xs'
                     }`}
                   >
-                    <p className="text-base font-semibold leading-relaxed">{msg.text}</p>
+                    <p className="text-base font-semibold leading-relaxed">
+                      {msg.text}
+                    </p>
 
                     {/* Translation row if present */}
                     {msg.translatedText && (
@@ -212,9 +260,14 @@ export const TwoWayPanel: React.FC = () => {
               <div className="w-8 h-8 rounded-lg bg-teal-600 text-white flex items-center justify-center font-bold">
                 <Hand className="w-4 h-4" />
               </div>
+
               <div>
-                <h4 className="font-bold text-slate-900 text-sm">Sign Language User</h4>
-                <span className="text-[11px] text-teal-700 font-semibold block">Deaf / Non-Speaking</span>
+                <h4 className="font-bold text-slate-900 text-sm">
+                  Sign Language User
+                </h4>
+                <span className="text-[11px] text-teal-700 font-semibold block">
+                  Deaf / Non-Speaking
+                </span>
               </div>
             </div>
 
@@ -224,12 +277,15 @@ export const TwoWayPanel: React.FC = () => {
                 type="button"
                 onClick={() => setSignUserMode('text')}
                 className={`p-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors ${
-                  signUserMode === 'text' ? 'bg-white text-teal-700 shadow-xs' : 'text-slate-500'
+                  signUserMode === 'text'
+                    ? 'bg-white text-teal-700 shadow-xs'
+                    : 'text-slate-500'
                 }`}
                 title="Type text"
               >
                 <Type className="w-3.5 h-3.5" />
               </button>
+
               <button
                 type="button"
                 onClick={() => {
@@ -238,12 +294,15 @@ export const TwoWayPanel: React.FC = () => {
                   showToast('Camera sign gesture pre-filled', 'info');
                 }}
                 className={`p-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors ${
-                  signUserMode === 'sign-camera' ? 'bg-white text-teal-700 shadow-xs' : 'text-slate-500'
+                  signUserMode === 'sign-camera'
+                    ? 'bg-white text-teal-700 shadow-xs'
+                    : 'text-slate-500'
                 }`}
                 title="Camera sign input"
               >
                 <Camera className="w-3.5 h-3.5" />
               </button>
+
               <button
                 type="button"
                 onClick={() => {
@@ -252,7 +311,9 @@ export const TwoWayPanel: React.FC = () => {
                   showToast('Video sign gesture pre-filled', 'info');
                 }}
                 className={`p-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors ${
-                  signUserMode === 'sign-video' ? 'bg-white text-teal-700 shadow-xs' : 'text-slate-500'
+                  signUserMode === 'sign-video'
+                    ? 'bg-white text-teal-700 shadow-xs'
+                    : 'text-slate-500'
                 }`}
                 title="Video upload input"
               >
@@ -305,9 +366,14 @@ export const TwoWayPanel: React.FC = () => {
               <div className="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center font-bold">
                 <User className="w-4 h-4" />
               </div>
+
               <div>
-                <h4 className="font-bold text-slate-900 text-sm">Hearing Partner</h4>
-                <span className="text-[11px] text-indigo-700 font-semibold block">Speech / Text</span>
+                <h4 className="font-bold text-slate-900 text-sm">
+                  Hearing Partner
+                </h4>
+                <span className="text-[11px] text-indigo-700 font-semibold block">
+                  Speech / Text
+                </span>
               </div>
             </div>
 
@@ -317,21 +383,28 @@ export const TwoWayPanel: React.FC = () => {
                 type="button"
                 onClick={() => setHearingUserMode('type')}
                 className={`p-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors ${
-                  hearingUserMode === 'type' ? 'bg-white text-indigo-700 shadow-xs' : 'text-slate-500'
+                  hearingUserMode === 'type'
+                    ? 'bg-white text-indigo-700 shadow-xs'
+                    : 'text-slate-500'
                 }`}
                 title="Type text"
               >
                 <Type className="w-3.5 h-3.5" />
               </button>
+
               <button
                 type="button"
                 onClick={() => {
                   setHearingUserMode('speech');
-                  setHearingUserText('Yes, I am happy to help you find it.');
+                  setHearingUserText(
+                    'Yes, I am happy to help you find it.'
+                  );
                   showToast('Microphone speech simulated', 'info');
                 }}
                 className={`p-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors ${
-                  hearingUserMode === 'speech' ? 'bg-white text-indigo-700 shadow-xs' : 'text-slate-500'
+                  hearingUserMode === 'speech'
+                    ? 'bg-white text-indigo-700 shadow-xs'
+                    : 'text-slate-500'
                 }`}
                 title="Speech recognition input"
               >
@@ -353,16 +426,18 @@ export const TwoWayPanel: React.FC = () => {
 
             <div className="flex items-center justify-between">
               <div className="flex gap-1.5">
-                {['Of course!', 'Where are you going?', 'Take care'].map(quick => (
-                  <button
-                    key={quick}
-                    type="button"
-                    onClick={() => setHearingUserText(quick)}
-                    className="px-2 py-1 bg-slate-100 hover:bg-indigo-50 text-slate-700 hover:text-indigo-800 text-[11px] font-medium rounded-lg border border-slate-200 transition-colors"
-                  >
-                    {quick}
-                  </button>
-                ))}
+                {['Of course!', 'Where are you going?', 'Take care'].map(
+                  quick => (
+                    <button
+                      key={quick}
+                      type="button"
+                      onClick={() => setHearingUserText(quick)}
+                      className="px-2 py-1 bg-slate-100 hover:bg-indigo-50 text-slate-700 hover:text-indigo-800 text-[11px] font-medium rounded-lg border border-slate-200 transition-colors"
+                    >
+                      {quick}
+                    </button>
+                  )
+                )}
               </div>
 
               <button
@@ -389,8 +464,11 @@ export const TwoWayPanel: React.FC = () => {
             <div className="flex items-center justify-between border-b border-slate-800 pb-3">
               <div className="flex items-center gap-2 text-teal-400">
                 <Hand className="w-5 h-5" />
-                <h4 className="font-bold text-white text-base">Sign Language Translation View</h4>
+                <h4 className="font-bold text-white text-base">
+                  Sign Language Translation View
+                </h4>
               </div>
+
               <button
                 onClick={() => setActiveSignPreviewText(null)}
                 className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors"

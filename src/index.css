@@ -12,15 +12,68 @@
     min-height: 100vh;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-display);
     letter-spacing: -0.02em;
   }
 
-  /* Accessibility Mode Classes */
+  /* =========================================================
+     ACCESSIBILITY - LARGE TEXT
+     ========================================================= */
+
   body.accessibility-large-text {
-    font-size: 1.125rem;
-    line-height: 1.75rem;
+    font-size: 20px !important;
+    line-height: 1.8 !important;
+  }
+
+  body.accessibility-large-text .text-xs {
+    font-size: 1.05rem !important;
+    line-height: 1.6 !important;
+  }
+
+  body.accessibility-large-text .text-sm {
+    font-size: 1.2rem !important;
+    line-height: 1.65 !important;
+  }
+
+  body.accessibility-large-text .text-base {
+    font-size: 1.3rem !important;
+    line-height: 1.7 !important;
+  }
+
+  body.accessibility-large-text .text-lg {
+    font-size: 1.5rem !important;
+    line-height: 1.6 !important;
+  }
+
+  body.accessibility-large-text .text-xl {
+    font-size: 1.75rem !important;
+    line-height: 1.5 !important;
+  }
+
+  body.accessibility-large-text .text-2xl {
+    font-size: 2.1rem !important;
+    line-height: 1.4 !important;
+  }
+
+  body.accessibility-large-text .text-3xl {
+    font-size: 2.5rem !important;
+    line-height: 1.35 !important;
+  }
+
+  body.accessibility-large-text .text-4xl {
+    font-size: 3rem !important;
+    line-height: 1.25 !important;
+  }
+
+  body.accessibility-large-text .text-5xl {
+    font-size: 3.5rem !important;
+    line-height: 1.2 !important;
   }
 
   body.accessibility-large-text button,
@@ -28,45 +81,282 @@
   body.accessibility-large-text input,
   body.accessibility-large-text select,
   body.accessibility-large-text textarea {
-    font-size: 1.125rem;
+    font-size: 1.2rem !important;
   }
 
+  body.accessibility-large-text h1 {
+    font-size: 3rem !important;
+    line-height: 1.2 !important;
+  }
+
+  body.accessibility-large-text h2 {
+    font-size: 2.5rem !important;
+    line-height: 1.25 !important;
+  }
+
+  body.accessibility-large-text h3 {
+    font-size: 2rem !important;
+    line-height: 1.3 !important;
+  }
+
+  body.accessibility-large-text h4 {
+    font-size: 1.6rem !important;
+    line-height: 1.35 !important;
+  }
+
+  /* =========================================================
+     ACCESSIBILITY - HIGH CONTRAST CANVAS
+     ========================================================= */
+
   body.accessibility-high-contrast {
-    --tw-bg-opacity: 1;
     background-color: #050811 !important;
     color: #ffffff !important;
   }
 
+  /*
+   * IMPORTANT:
+   * Navbar uses bg-white/95 rather than bg-white.
+   * These rules specifically make the entire navbar dark.
+   */
+
+  body.accessibility-high-contrast header {
+    background-color: #0b1120 !important;
+    border-color: #475569 !important;
+    color: #ffffff !important;
+  }
+
+  body.accessibility-high-contrast header nav {
+    background-color: transparent !important;
+    color: #ffffff !important;
+  }
+
+  /* Navbar brand */
+  body.accessibility-high-contrast header .text-slate-900 {
+    color: #ffffff !important;
+  }
+
+  body.accessibility-high-contrast header .text-slate-600,
+  body.accessibility-high-contrast header .text-slate-700 {
+    color: #e2e8f0 !important;
+  }
+
+  body.accessibility-high-contrast header .text-slate-500 {
+    color: #cbd5e1 !important;
+  }
+
+  body.accessibility-high-contrast header .text-slate-400 {
+    color: #94a3b8 !important;
+  }
+
+  /* Navbar links */
+  body.accessibility-high-contrast header a,
+  body.accessibility-high-contrast header button {
+    color: #e2e8f0;
+  }
+
+  body.accessibility-high-contrast header a:hover,
+  body.accessibility-high-contrast header button:hover {
+    color: #ffffff !important;
+  }
+
+  /* Active navigation item */
+  body.accessibility-high-contrast header .bg-teal-50 {
+    background-color: #134e4a !important;
+    color: #ccfbf1 !important;
+    border-color: #2dd4bf !important;
+  }
+
+  body.accessibility-high-contrast header .text-teal-700,
+  body.accessibility-high-contrast header .text-teal-600 {
+    color: #5eead4 !important;
+  }
+
+  /* Navbar inactive hover backgrounds */
+  body.accessibility-high-contrast header .hover\:bg-slate-100\/70:hover,
+  body.accessibility-high-contrast header .hover\:bg-slate-100:hover,
+  body.accessibility-high-contrast header .hover\:bg-slate-50:hover {
+    background-color: #1e293b !important;
+  }
+
+  /* Navbar borders */
+  body.accessibility-high-contrast header .border-slate-200,
+  body.accessibility-high-contrast header .border-slate-200\/80,
+  body.accessibility-high-contrast header .border-slate-100 {
+    border-color: #475569 !important;
+  }
+
+  /* Accessibility button */
+  body.accessibility-high-contrast header .bg-slate-100 {
+    background-color: #1e293b !important;
+    color: #f8fafc !important;
+    border-color: #64748b !important;
+  }
+
+  /* User menu button */
+  body.accessibility-high-contrast header .bg-white {
+    background-color: #0f172a !important;
+    color: #ffffff !important;
+    border-color: #64748b !important;
+  }
+
+  /* User dropdown */
+  body.accessibility-high-contrast header [role="menu"] {
+    background-color: #0f172a !important;
+    color: #ffffff !important;
+    border-color: #64748b !important;
+  }
+
+  body.accessibility-high-contrast header [role="menu"] .bg-slate-50 {
+    background-color: #1e293b !important;
+    color: #ffffff !important;
+  }
+
+  /* Mobile navigation */
+  body.accessibility-high-contrast header .bg-white {
+    background-color: #0f172a !important;
+  }
+
+  /* =========================================================
+     HIGH CONTRAST - GENERAL PAGE SURFACES
+     ========================================================= */
+
   body.accessibility-high-contrast .bg-white {
     background-color: #0f172a !important;
+    color: #f8fafc !important;
     border-color: #475569 !important;
+  }
+
+  body.accessibility-high-contrast .bg-slate-50 {
+    background-color: #111827 !important;
     color: #f8fafc !important;
   }
 
-  body.accessibility-high-contrast .bg-slate-50,
   body.accessibility-high-contrast .bg-slate-100 {
     background-color: #1e293b !important;
     color: #ffffff !important;
   }
 
-  body.accessibility-high-contrast .text-slate-500,
-  body.accessibility-high-contrast .text-slate-600,
+  body.accessibility-high-contrast .bg-slate-200 {
+    background-color: #334155 !important;
+    color: #ffffff !important;
+  }
+
+  /* General text */
+  body.accessibility-high-contrast .text-slate-900,
+  body.accessibility-high-contrast .text-slate-800,
   body.accessibility-high-contrast .text-slate-700 {
+    color: #ffffff !important;
+  }
+
+  body.accessibility-high-contrast .text-slate-600,
+  body.accessibility-high-contrast .text-slate-500 {
     color: #e2e8f0 !important;
   }
 
+  body.accessibility-high-contrast .text-slate-400 {
+    color: #cbd5e1 !important;
+  }
+
+  /* Borders */
+  body.accessibility-high-contrast .border-slate-100,
   body.accessibility-high-contrast .border-slate-200,
-  body.accessibility-high-contrast .border-slate-100 {
+  body.accessibility-high-contrast .border-slate-300 {
     border-color: #64748b !important;
   }
+
+  /* Dividers */
+  body.accessibility-high-contrast .divide-slate-100 > :not([hidden]) ~ :not([hidden]),
+  body.accessibility-high-contrast .divide-slate-200 > :not([hidden]) ~ :not([hidden]) {
+    border-color: #64748b !important;
+  }
+
+  /* =========================================================
+     HIGH CONTRAST - FORMS
+     ========================================================= */
+
+  body.accessibility-high-contrast input,
+  body.accessibility-high-contrast textarea,
+  body.accessibility-high-contrast select {
+    background-color: #0f172a !important;
+    color: #ffffff !important;
+    border-color: #64748b !important;
+  }
+
+  body.accessibility-high-contrast input::placeholder,
+  body.accessibility-high-contrast textarea::placeholder {
+    color: #cbd5e1 !important;
+    opacity: 1 !important;
+  }
+
+  body.accessibility-high-contrast option {
+    background-color: #0f172a !important;
+    color: #ffffff !important;
+  }
+
+  /* =========================================================
+     HIGH CONTRAST - BUTTONS
+     ========================================================= */
 
   body.accessibility-high-contrast button {
     border-width: 2px !important;
   }
 
-  /* Reduced motion */
+  body.accessibility-high-contrast button:disabled,
+  body.accessibility-high-contrast input:disabled,
+  body.accessibility-high-contrast select:disabled,
+  body.accessibility-high-contrast textarea:disabled {
+    opacity: 0.65 !important;
+  }
+
+  /* =========================================================
+     HIGH CONTRAST - LINKS
+     ========================================================= */
+
+  body.accessibility-high-contrast a {
+    color: #67e8f9;
+  }
+
+  body.accessibility-high-contrast a:hover {
+    color: #a5f3fc;
+  }
+
+  /* =========================================================
+     HIGH CONTRAST - TEAL
+     ========================================================= */
+
+  body.accessibility-high-contrast .text-teal-500,
+  body.accessibility-high-contrast .text-teal-600,
+  body.accessibility-high-contrast .text-teal-700 {
+    color: #5eead4 !important;
+  }
+
+  body.accessibility-high-contrast .bg-teal-50 {
+    background-color: #134e4a !important;
+    color: #ccfbf1 !important;
+  }
+
+  body.accessibility-high-contrast .bg-teal-100 {
+    background-color: #115e59 !important;
+    color: #ccfbf1 !important;
+  }
+
+  /* =========================================================
+     HIGH CONTRAST - DARK SURFACES
+     ========================================================= */
+
+  body.accessibility-high-contrast .bg-slate-900 {
+    background-color: #020617 !important;
+    color: #ffffff !important;
+  }
+
+  /* =========================================================
+     ACCESSIBILITY - REDUCED MOTION
+     ========================================================= */
+
   @media (prefers-reduced-motion: reduce) {
-    *, ::before, ::after {
+    *,
+    ::before,
+    ::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
@@ -80,19 +370,65 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 
-  /* Focus ring for keyboard navigation */
+  /* =========================================================
+     KEYBOARD FOCUS
+     ========================================================= */
+
   :focus-visible {
     outline: 3px solid #0d9488 !important;
     outline-offset: 2px !important;
   }
+
+  body.accessibility-high-contrast :focus-visible {
+    outline: 4px solid #67e8f9 !important;
+    outline-offset: 3px !important;
+  }
+
+  /* =========================================================
+     SCREEN READER OPTIMIZED MODE
+     ========================================================= */
+
+  body.accessibility-screen-reader :focus-visible {
+    outline: 4px solid #0f766e !important;
+    outline-offset: 4px !important;
+    border-radius: 4px !important;
+  }
+
+  body.accessibility-screen-reader button:focus-visible,
+  body.accessibility-screen-reader a:focus-visible,
+  body.accessibility-screen-reader input:focus-visible,
+  body.accessibility-screen-reader select:focus-visible,
+  body.accessibility-screen-reader textarea:focus-visible {
+    outline: 4px solid #0f766e !important;
+    outline-offset: 4px !important;
+  }
+
+  body.accessibility-screen-reader button:disabled,
+  body.accessibility-screen-reader input:disabled,
+  body.accessibility-screen-reader select:disabled,
+  body.accessibility-screen-reader textarea:disabled {
+    cursor: not-allowed;
+  }
 }
 
-/* Custom smooth pulse & landmark skeleton effects */
+/* =========================================================
+   LANDMARK ANIMATION
+   ========================================================= */
+
 @keyframes landmark-pulse {
-  0%, 100% { opacity: 0.4; transform: scale(1); }
-  50% { opacity: 0.9; transform: scale(1.15); }
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.9;
+    transform: scale(1.15);
+  }
 }
 
 .animate-landmark {
