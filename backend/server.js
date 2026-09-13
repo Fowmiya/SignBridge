@@ -3,12 +3,29 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 
-const signRoutes = require("./routes/signRoutes");
-const authRoutes = require("./routes/authRoutes");
-const translationRoutes = require("./routes/translationRoutes");
-const conversationRoutes = require("./routes/conversationRoutes");
+const signRoutesModule = require("./routes/signRoutes");
+const authRoutesModule = require("./routes/authRoutes");
+const translationRoutesModule = require("./routes/translationRoutes");
+const conversationRoutesModule = require("./routes/conversationRoutes");
 
 require("./database/db");
+
+const getRouter = (moduleValue) => {
+  if (typeof moduleValue === "function") {
+    return moduleValue;
+  }
+
+  if (moduleValue && typeof moduleValue.default === "function") {
+    return moduleValue.default;
+  }
+
+  throw new TypeError("Route module did not export an Express router");
+};
+
+const signRoutes = getRouter(signRoutesModule);
+const authRoutes = getRouter(authRoutesModule);
+const translationRoutes = getRouter(translationRoutesModule);
+const conversationRoutes = getRouter(conversationRoutesModule);
 
 const app = express();
 
@@ -35,7 +52,6 @@ app.get("/", (req, res) => {
   });
 });
 
-// Export the Express app for Vercel
 module.exports = app;
 
 // Start the server only when running locally
