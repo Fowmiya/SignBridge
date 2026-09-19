@@ -2,7 +2,7 @@ const API_BASE_URL =
   window.location.hostname === "localhost" ||
   window.location.hostname === "127.0.0.1"
     ? "http://localhost:5000/api"
-    : "/api";
+    : "https://signbridge-backend-one.vercel.app/api";
 
 export const apiService = {
   async register(name: string, email: string, password: string) {
