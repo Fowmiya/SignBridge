@@ -8,7 +8,7 @@ const authRoutesModule = require("./routes/authRoutes");
 const translationRoutesModule = require("./routes/translationRoutes");
 const conversationRoutesModule = require("./routes/conversationRoutes");
 
-require("./database/db");
+require("./database/initDb");
 
 const app = express();
 
