@@ -4,7 +4,7 @@ const express = require("express");
 const cors = require("cors");
 
 const signRoutes = require("./routes/signRoutes");
-const authRoutes = require("./routes/authRoutes");
+const { router: authRoutes } = require("./routes/authRoutes");
 const translationRoutes = require("./routes/translationRoutes");
 const conversationRoutes = require("./routes/conversationRoutes");
 
